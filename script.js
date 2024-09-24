@@ -1,8 +1,7 @@
 const imageUrls = [
-    { url: "https://via.placeholder.com/150" },
-    { url: "https://via.placeholder.com/200" },
-    { url: "https://via.placeholder.com/250" },
-    { url: "https://via.placeholder.com/300" }
+    { url: "https://picsum.photos/id/237/200/300" },
+    { url: "https://picsum.photos/id/238/200/300" },
+    { url: "https://picsum.photos/id/239/200/300" },
 ];
 
 // Function to download a single image
@@ -23,18 +22,20 @@ function downloadImages(images) {
 }
 
 // Function to handle button click
-document.getElementById('download-images-button').addEventListener('click', () => {
-    downloadImages(imageUrls)
-        .then(images => {
-            const outputDiv = document.getElementById('output');
-            outputDiv.innerHTML = ''; // Clear previous images
-            images.forEach(img => {
-                document.getElementById('output').appendChild(img);
+document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('download-images-button').addEventListener('click', () => {
+        downloadImages(imageUrls)
+            .then(images => {
+                const outputDiv = document.getElementById('output');
+                outputDiv.innerHTML = ''; // Clear previous images
+                images.forEach(img => {
+                    outputDiv.appendChild(img);
+                });
+            })
+            .catch(error => {
+                console.error(error.message);
+                const outputDiv = document.getElementById('output');
+                outputDiv.innerHTML = error.message; // Display error message
             });
-        })
-        .catch(error => {
-            console.error(error.message);
-            const outputDiv = document.getElementById('output');
-            outputDiv.innerHTML = error.message; // Display error message
-        });
+    });
 });
